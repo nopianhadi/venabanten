@@ -78,8 +78,9 @@ const PrintButton: React.FC<PrintButtonProps> = ({ areaId, label = 'Cetak', titl
       iframe.style.width = '1px';
       iframe.style.height = '1px';
       iframe.style.border = 'none';
-      // Add sandbox attribute for security - allow necessary permissions including scripts
-      iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts');
+      // Add sandbox attribute for security - allow necessary permissions for printing
+      // Note: allow-same-origin and allow-scripts together can escape sandboxing, but required for print functionality
+      iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-modals allow-popups');
       document.body.appendChild(iframe);
 
       const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
@@ -662,8 +663,8 @@ const PrintButton: React.FC<PrintButtonProps> = ({ areaId, label = 'Cetak', titl
           }
           
           .signature-area img {
-            max-height: 50px !important;
-            max-width: 120px !important;
+            max-height: 30px !important;
+            max-width: 80px !important;
             object-fit: contain !important;
           }
           
